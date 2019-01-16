@@ -16,6 +16,7 @@ export default {
 			//layStart = 0,
 			//layEnd = 100,
 			//strDownloadMime = "image/octet-stream",
+			zoomLevel: 2,
 			statsfps: undefined,
 			needsRedraw: false,
 			i: 0,
@@ -43,18 +44,17 @@ export default {
 			this.live.initLive();
 		},
 		animate: function() {
-			this.statsfps.begin();
+			//this.statsfps.begin();
 			this.preview.previewControls.update();
 			requestAnimationFrame( this.animate );
 			if (this.hasGeoToRender || this.needsRedraw)
 				this.preview.previewRenderer.render( this.preview.previewScene, this.preview.previewCamera );
-			Live.liveRenderer.render(Live.liveScene, Live.liveCamera);
+			this.live.liveRenderer.render(this.live.liveScene, this.live.liveCamera);
 			if (this.hasGeoToRender)
 				this.preview.renderLoop();
 			if (this.needsRedraw)
 				this.redrawLoop();
 			//light.position.z -= 0.1;
-			this.statsfps.end();
 		},
 		initRedraw: function()
 		{
@@ -113,6 +113,35 @@ export default {
 				this.meshMaterial = new THREE.MeshPhongMaterial({color: color});
 				this.lay = 0;
 			}
+		},
+		zoomIn: function()
+		{
+				document.getElementById("liveDisplay").firstElementChild.style.transform = "scale("+ (this.zoomLevel) +")";
+				document.getElementById("liveDisplay").firstElementChild.style.transition = "transform .5s"
+		},
+		zoomOut: function()
+		{
+				document.getElementById("liveDisplay").firstElementChild.style.transform = "scale("+1+")";
+		},
+		centerSvg: function(event)
+		{
+			var cX = (event.offsetX)/12;
+			var cY = (event.offsetY)/10.4;
+			//console.log("X = " + cX + "%")
+			//console.log("Y = " + cY + "%")
+			document.getElementById("liveDisplay").firstElementChild.style["transform-origin"] = cX + "% " + cY + "%";
+		},
+		zoomSvg: function(event)
+		{
+			var  dir = event.deltaY;
+			//var fast = event.shiftKey
+			if ((dir < 0) && (this.zoomLevel < 4)) // forward
+			{
+				document.getElementById("liveDisplay").firstElementChild.style.transform = "scale("+ (this.zoomLevel *= 1.1) +")";
+			} else if ((dir > 0) && (this.zoomLevel > 1)) {
+				document.getElementById("liveDisplay").firstElementChild.style.transform = "scale("+ (this.zoomLevel /= 1.1) +")";
+			}
+			event.preventDefault();
 		},
 	},
 	mounted() {

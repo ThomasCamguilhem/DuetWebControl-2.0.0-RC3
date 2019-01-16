@@ -27,8 +27,8 @@ const store = new Vuex.Store({
 	state: {
 		isConnecting: false,
 		isDisconnecting: false,
-		isLocal: (location.hostname === 'localhost') || (location.hostname === '127.0.0.1') || (location.hostname === '[::1]') || (location.port === '8080'),
-		connectDialogShown: (location.hostname === 'localhost') || (location.hostname === '127.0.0.1') || (location.hostname === '[::1]') || (location.port === '8080'),
+		isLocal: (location.hostname === 'localhost') || (location.hostname === '127.0.0.1') || (location.hostname === '[::1]'),
+		connectDialogShown: (location.hostname === 'localhost') || (location.hostname === '127.0.0.1') || (location.hostname === '[::1]'),
 		passwordRequired: false,
 		selectedMachine: defaultMachine
 	},
@@ -39,7 +39,7 @@ const store = new Vuex.Store({
 	},
 	actions: {
 		// Connect to the given hostname using the specified credentials
-		async connect({ state, commit, dispatch }, { hostname, username = defaultUsername, password = defaultPassword } = { hostname: location.host, username: defaultUsername, password: defaultPassword }) {
+		async connect({ state, commit, dispatch }, { hostname, username = defaultUsername, password = defaultPassword } = { hostname: (location.host.lastIndexOf(":")>0?location.host.substring(0,location.host.lastIndexOf(":")):location.host), username: defaultUsername, password: defaultPassword }) {
 			if (!hostname || hostname === defaultMachine) {
 				throw new Error('Invalid hostname');
 			}

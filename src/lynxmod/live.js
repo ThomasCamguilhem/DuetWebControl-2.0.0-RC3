@@ -1,6 +1,7 @@
 
 let $ = require('jquery') ;
 let THREE = require('three') ;
+import { getRealHeaterColor } from '../utils/colors.js'
 
 export default {
 	name: 'LiveScene',
@@ -153,7 +154,7 @@ export default {
 				posTi.x = pos.x + (20*Math.cos(this.radians(90-(angle*i))));
 				posTi.y = pos.y + (20*Math.sin(this.radians(90-(angle*i))));
 				this.drawTool(posTi, geometry);
-				tHead = new THREE.LineSegments(geometry, new THREE.LineBasicMaterial({color: this.tempChartOptions.colors[i+1]}));
+				tHead = new THREE.LineSegments(geometry, new THREE.LineBasicMaterial({color: getRealHeaterColor(i,false)}));
 				tHead.name = "toolHead"+(i+1);
 				this.liveScene.add(tHead);
 			}
