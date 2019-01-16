@@ -7,7 +7,7 @@
 			<v-icon small class="mr-1">visibility</v-icon> Gcode Visualizer
 			<v-spacer></v-spacer>
 		</v-card-title>
-		<div style="width: 600px; height: 520px; overflow: hidden; margin:auto"  @mouseenter="zoomIn()" @mouseleave="zoomOut()" v-on:mousemove="centerSvg" v-on:mousewheel="zoomSvg" v-on:wheel="zoomSvg">
+		<div style="width: 600px; height: 520px; overflow: hidden; margin:auto"  @mouseenter="zoomIn()" @mouseleave="zoomOut()" v-on:mousemove="centerSvg(e)" v-on:mousewheel="zoomSvg(e)" v-on:wheel="zoomSvg(e)">
 				<div id="liveDisplay" style="width: 600px; height: 520px; transform: scale(0.5); transform-origin: 0% 0%"><canvas></canvas></div>
 		</div>
   </v-card>
