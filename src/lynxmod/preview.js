@@ -16,7 +16,7 @@ export default {
 		{
 			this.previewScene = new THREE.Scene();
 			this.previewCamera = new THREE.PerspectiveCamera( 75, 600 / 600, 0.1, 10000 );
-			var previewSpace = $("#threeDisplay")[0];
+			var previewSpace = ($("#threeDisplay")[0]?$("#threeDisplay")[0]:$("#threeDisplay"));
 			this.previewRenderer = new THREE.WebGLRenderer({
 					preserveDrawingBuffer: true,
 					alpha: true
@@ -25,6 +25,8 @@ export default {
 
 			this.previewRenderer.shadowMapEnabeled = true;
 			this.previewRenderer.shadowMap.type = THREE.BasicShadowMap;
+			console.log(previewSpace);
+			console.log(this.previewRenderer);
 			previewSpace.appendChild( this.previewRenderer.domElement );
 			var ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
 			this.previewScene.add(ambientLight);

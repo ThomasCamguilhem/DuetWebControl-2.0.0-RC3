@@ -8,8 +8,9 @@
 			<v-spacer></v-spacer>
 		</v-card-title>
 		<div style="width: 600px; height: 520px; overflow: hidden; margin:auto"  @mouseenter="zoomIn()" @mouseleave="zoomOut()" v-on:mousemove="centerSvg(e)" v-on:mousewheel="zoomSvg(e)" v-on:wheel="zoomSvg(e)">
-				<div id="liveDisplay" style="width: 600px; height: 520px; transform: scale(0.5); transform-origin: 0% 0%"><canvas></canvas></div>
+				<div id="liveDisplay" style="width: 600px; height: 520px; transform: scale(0.5); transform-origin: 0% 0%"></div>
 		</div>
+		<div id="threeDisplay" style="height: 400px; width: 400px; display:none;"></div>
   </v-card>
 </template>
 <script>

@@ -262,8 +262,8 @@ export default class PollConnector extends BaseConnector {
 				})),
 				babystepZ: response.data.params.babystep,
 				currentMove: {
-					requestedSpeed: response.data.speeds.requested,
-					topSpeed: response.data.speeds.top
+					requestedSpeed: (response.data.speeds && response.data.speeds.requested ? response.data.speeds.requested : undefined),
+					topSpeed: (response.data.speeds && response.data.speeds.top ? response.data.speeds.top : undefined),
 				},
 				drives: [].concat(response.data.coords.xyz, response.data.coords.extr).map((xyz, drive) => ({
 					position: (drive < response.data.coords.xyz.length) ? xyz : response.data.coords.extr[drive - response.data.coords.xyz.length]
@@ -337,10 +337,11 @@ export default class PollConnector extends BaseConnector {
 					],
 					coldExtrudeTemperature: response.data.coldExtrudeTemp,
 					coldRetractTemperature: response.data.coldRetractTemp,
-					heaters: response.data.temps.names.map(name => ({
-						max: response.data.tempLimit,
-						name
-					}))
+					heaters: (response.data.temps.names ?
+						response.data.temps.names.map(name => ({
+							max: response.data.tempLimit,
+							name
+						})) : [{}])
 				},
 				move: {
 					axes: response.data.axisNames.split('').map((axis, index) => ({
@@ -855,7 +856,7 @@ export default class PollConnector extends BaseConnector {
 			}
 
 			fileList = fileList.concat(response.data.files);
-			next = response.data.next;
+			next = (response.data.next?response.data.next:0);
 		} while (next !== 0);
 
 		return fileList.map(item => ({

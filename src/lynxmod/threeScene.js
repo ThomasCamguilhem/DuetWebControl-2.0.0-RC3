@@ -26,6 +26,8 @@ export default {
 			curlay: 0,
 			hasGeoToRender: false,
 			newStatus: {},
+			preview: Object.assign(Preview.default.methods, Preview.default.data),
+			live: Object.assign(Live.default.methods, Live.default.data),
 		}
 	},
 	methods: {
@@ -37,20 +39,18 @@ export default {
 				this.statsfps.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
 				document.body.appendChild( this.statsfps.dom );
 			}
-			console.log(Preview);
-			console.log(Preview.initPreview);
-			Preview.initPreview();
-			Live.initLive();
+			this.preview.initPreview();
+			this.live.initLive();
 		},
 		animate: function() {
 			this.statsfps.begin();
-			Preview.previewControls.update();
+			this.preview.previewControls.update();
 			requestAnimationFrame( this.animate );
 			if (this.hasGeoToRender || this.needsRedraw)
-				Preview.previewRenderer.render( Preview.previewScene, Preview.previewCamera );
+				this.preview.previewRenderer.render( this.preview.previewScene, this.preview.previewCamera );
 			Live.liveRenderer.render(Live.liveScene, Live.liveCamera);
 			if (this.hasGeoToRender)
-				Preview.renderLoop();
+				this.preview.renderLoop();
 			if (this.needsRedraw)
 				this.redrawLoop();
 			//light.position.z -= 0.1;
@@ -120,14 +120,3 @@ export default {
 		this.animate();
 	}
 }
-/*
-const
-// Converts from degrees to radians.
-Math.radians = function(degrees) {
-  return degrees * Math.PI / 180;
-}
-// Converts from radians to degrees.
-Math.degrees = function(radians) {
-  return radians * 180 / Math.PI;
-}
-*/
