@@ -82,11 +82,11 @@ a:not(:hover) {
 
 			<v-spacer></v-spacer>
 
-			<code-input class="hidden-sm-and-down"></code-input>
+			<code-input class="hidden-sm-and-down" v-if="!isLocal"></code-input>
 
 			<v-spacer></v-spacer>
 
-			<upload-btn target="start" class="hidden-sm-and-down"></upload-btn>
+			<upload-btn target="start" class="hidden-sm-and-down" v-if="!isLocal"></upload-btn>
 			<emergency-btn class="hidden-xs-only"></emergency-btn>
 
 			<v-btn icon class="hidden-md-and-up" :class="toggleGlobalContainerColor" @click="hideGlobalContainer = !hideGlobalContainer">
@@ -102,7 +102,7 @@ a:not(:hover) {
 			<v-scroll-y-transition>
 				<v-container fluid id="global-container" class="container" v-show="!hideGlobalContainer || $vuetify.breakpoint.mdAndUp">
 					<v-layout row wrap>
-						<v-flex xs12 sm6 md4 lg4>
+						<v-flex xs12 sm6 md4 lg4 v-if="!isLocal">
 							<status-panel></status-panel>
 						</v-flex>
 

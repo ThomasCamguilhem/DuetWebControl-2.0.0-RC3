@@ -28,8 +28,8 @@ margin: 0 5px;
 <template>
 	<div>
 		<v-btn-toggle class="v-btn-toggle--only-child v-btn-toggle--selected">
-			<v-btn id="v-btn--list" class="v-btn--large v-btn--depressed " v-on:click="function(){for(dis in displayMode) displayMode[dis] = false; displayMode.asList=true; computeRowsCols();}"><v-icon  class="mr-1"> view_list </v-icon></v-btn>
-			<v-btn id="v-btn--mini" class="v-btn--large v-btn--depressed " v-on:click="function(){for(dis in displayMode) displayMode[dis] = false; displayMode.asMini=true; computeRowsCols();}"><v-icon  class="mr-1"> view_module </v-icon></v-btn>
+			<v-btn id="v-btn--list" class="v-btn--large v-btn--depressed " v-on:click="updateDis('l')"><v-icon  class="mr-1"> view_list </v-icon></v-btn>
+			<v-btn id="v-btn--mini" class="v-btn--large v-btn--depressed " v-on:click="updateDis('m')"><v-icon  class="mr-1"> view_module </v-icon></v-btn>
 		</v-btn-toggle>
 		<v-data-table v-model="innerValue" v-bind="$props" :items="innerFilelist" :loading="loading || innerLoading" :custom-sort="sort" :pagination.sync="innerPagination" select-all hide-actions item-key="name" class="elevation-3" :class="{ 'empty-table-fix' : innerFilelist.length === 0, 'loading-cursor' : (loading || innerLoading || doingFileOperation || innerDoingFileOperation) }">
 			<template slot="progress">
@@ -670,8 +670,22 @@ export default {
 					}
 				}
 			}
+		},
+		async updateDis(type){
+			for(let dis in this.displayMode)
+				this.displayMode[dis] = false;
+			switch(type)
+			{
+				case 'l':
+					this.displayMode.asList=true;
+					break;
+				case 'm':
+					this.displayMode.asMini=true;
+					break;
+				default:
+			}
+			await this.computeRowsCols();
 		}
-
 	},
 	mounted() {
 		// Perform initial load

@@ -21,7 +21,7 @@ import SpeedFactorPanel from './SpeedFactorPanel.vue'
 import StatusPanel from './StatusPanel.vue'
 import ToolsPanel from './ToolsPanel.vue'
 import WebcamPanel from './WebcamPanel.vue'
-//import LynxterPanel from './gcode-viewer.vue'
+import LynxterPanel from './gcode-viewer.vue'
 
 Vue.component('about-panel', AboutPanel)
 Vue.component('atx-panel', ATXPanel)
@@ -42,7 +42,7 @@ Vue.component('status-panel', StatusPanel)
 Vue.component('speed-factor-panel', SpeedFactorPanel)
 Vue.component('tools-panel', ToolsPanel)
 Vue.component('webcam-panel', WebcamPanel)
-//Vue.component('gcode-panel', LynxterPanel)
+Vue.component('gcode-panel', LynxterPanel)
 
 export default {
 	ATXPanel,

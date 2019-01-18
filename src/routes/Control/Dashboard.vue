@@ -18,11 +18,11 @@
 					</v-layout>
 				</v-flex>
 
-				<v-flex>
+				<v-flex v-if="!isLocal">
 					<gcode-panel></gcode-panel>
 				</v-flex>
 
-				<v-flex md9>
+				<v-flex md9 v-if="!isLocal">
 					<fan-panel></fan-panel>
 				</v-flex>
 
@@ -32,8 +32,20 @@
 			</v-layout>
 		</v-flex>
 
-		<v-flex class="hidden-xs-only" sm4 md4 lg3 xl3>
+		<v-flex sm4 md4 lg3 xl3>
 			<macro-list></macro-list>
 		</v-flex>
 	</v-layout>
 </template>
+
+<script>
+export default {
+	data() {
+		return {
+			isLocal: (location.hostname === 'localhost') || (location.hostname === '127.0.0.1') || (location.hostname === '[::1]')
+		}
+	},
+	methods:{
+	}
+}
+</script>

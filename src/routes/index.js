@@ -17,7 +17,7 @@ export const Routing = [
 	{
 		icon: 'tune',
 		caption: 'menu.control.caption',
-		pages: [
+		pages: (!(location.hostname === 'localhost') || (location.hostname === '127.0.0.1') || (location.hostname === '[::1]') ? [
 			// Dashboard
 			{
 				icon: 'dashboard',
@@ -39,7 +39,14 @@ export const Routing = [
 				path: '/Heightmap',
 				component: Control.Heightmap
 			}
-		]
+		] : [
+			{
+				icon: 'dashboard',
+				caption: 'menu.control.dashboard',
+				path: '/',
+				component: Control.Dashboard
+			}
+		])
 	},
 	// Job
 	{
@@ -74,7 +81,9 @@ export const Routing = [
 	{
 		icon: 'sd_storage',
 		caption: 'menu.files.caption',
-		pages: [
+		pages: (!((location.hostname === 'localhost')
+						|| (location.hostname === '127.0.0.1')
+						|| (location.hostname === '[::1]')) ? [
 			// Jobs
 			{
 				icon: 'play_arrow',
@@ -111,7 +120,15 @@ export const Routing = [
 				path: '/Files/System',
 				component: Files.System
 			}
-		]
+		] : [
+			// Jobs
+			{
+				icon: 'play_arrow',
+				caption: 'menu.files.jobs',
+				path: '/Files/Jobs',
+				component: Files.Jobs
+			},
+		])
 	},
 	// Settings
 	{

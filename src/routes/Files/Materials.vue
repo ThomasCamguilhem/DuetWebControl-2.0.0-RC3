@@ -1,5 +1,5 @@
 <template>
 	<v-layout column>
-		<material-file-list></material-file-list>
+		<filament-file-list></filament-file-list>
 	</v-layout>
 </template>
